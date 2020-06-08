@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'Responsive.dart';
 
-const kPagetitle =
+const kPagetitleStyle =
     TextStyle(fontSize: 22.0, color: Color.fromRGBO(97, 97, 97, 0.3));
 /////////21//////////
 const kmaintextstyle = TextStyle(

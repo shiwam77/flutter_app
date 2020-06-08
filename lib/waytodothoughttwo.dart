@@ -26,7 +26,7 @@ class _waytodothoughttwoState extends State<waytodothoughttwo> {
         appBar: AppBar(
           title: Text(
             'My Profile',
-            style: kPagetitle,
+            style: kPagetitleStyle,
           ),
         ),
         body: LayoutBuilder(builder: (context, constraints) {

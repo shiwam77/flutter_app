@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/Home.dart';
+import 'package:flutterapp/test.dart';
 import 'package:flutterapp/waytodothoughttwo.dart';
 
 void main() {
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.white,
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: waytodothoughttwo(),
+      home: Test(),
     );
   }
 }

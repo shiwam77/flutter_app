@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.white,
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: Test(),
+      home: waytodothoughttwo(),
     );
   }
 }

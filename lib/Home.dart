@@ -45,8 +45,24 @@ class _HomePageState extends State<HomePage> {
                               padding: new EdgeInsets.only(bottom: 15.0),
                               child: Stack(
                                 children: [
-                                  ImageContainer(
-                                    imgUrl: url,
+                                  Container(
+                                    height: 200,
+                                    width: SizeConfig.blockSizeHorizontal * 35,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          blurRadius: 10,
+                                          color:
+                                              Color(0xff000000).withOpacity(.6),
+                                          spreadRadius: 1,
+                                          // changes position of shadow
+                                        ),
+                                      ],
+                                      image: DecorationImage(
+                                          image: new NetworkImage(url),
+                                          fit: BoxFit.fill),
+                                    ),
                                   ),
                                   Positioned(
                                     bottom: 15,
@@ -221,7 +237,9 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   ],
                                 ),
-                                Spacer(),
+                                SizedBox(
+                                  height: SizeConfig.blockSizeVertical * 10,
+                                ),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
@@ -314,7 +332,9 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   ],
                                 ),
-                                Spacer(),
+                                SizedBox(
+                                  height: SizeConfig.blockSizeVertical * 5,
+                                ),
                                 Row(
                                   children: [
                                     RectangularBar(
@@ -407,7 +427,9 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   ],
                                 ),
-                                Spacer(),
+                                SizedBox(
+                                  height: SizeConfig.blockSizeVertical * 8,
+                                ),
                                 Row(
                                   children: [
                                     RectangularBar(
@@ -494,6 +516,9 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ],
                           ),
+                          SizedBox(
+                            height: 20,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
@@ -506,6 +531,9 @@ class _HomePageState extends State<HomePage> {
                                 onPressed: () {},
                               ),
                             ],
+                          ),
+                          SizedBox(
+                            height: 20,
                           ),
                           Padding(
                             padding:
@@ -548,78 +576,70 @@ class _HomePageState extends State<HomePage> {
                                   fit: BoxFit.fill),
                             ),
                           ),
-                          Expanded(
-                            child: Container(
-                              margin: EdgeInsets.all(10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.baseline,
-                                textBaseline: TextBaseline.alphabetic,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.baseline,
+                            textBaseline: TextBaseline.alphabetic,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                'Find me on',
+                                style: TextStyle(
+                                  color: Color(0xff616161).withOpacity(.8),
+                                  fontSize: 20,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Row(
                                 children: [
-                                  Text(
-                                    'Find me on',
-                                    style: TextStyle(
-                                      color: Color(0xff616161).withOpacity(.8),
-                                      fontSize: 20,
+                                  Container(
+                                    height: 22,
+                                    width: 28,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      image: DecorationImage(
+                                          image: new NetworkImage(url),
+                                          fit: BoxFit.fill),
                                     ),
                                   ),
                                   SizedBox(
-                                    height: 10,
+                                    width: 20,
                                   ),
-                                  Row(
-                                    children: [
-                                      Container(
-                                        height: 22,
-                                        width: 28,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          image: DecorationImage(
-                                              image: new NetworkImage(url),
-                                              fit: BoxFit.fill),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 20,
-                                      ),
-                                      Container(
-                                        height: 22,
-                                        width: 28,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          image: DecorationImage(
-                                              image: new NetworkImage(url),
-                                              fit: BoxFit.fill),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Row(
-                                    children: [
-                                      RectangularBar(
-                                        height: 15,
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      Text(
-                                        'claire30dayHealth.com',
-                                        style: TextStyle(
-                                            color: Color(0xff616161)
-                                                .withOpacity(.8),
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                    ],
+                                  Container(
+                                    height: 22,
+                                    width: 28,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      image: DecorationImage(
+                                          image: new NetworkImage(url),
+                                          fit: BoxFit.fill),
+                                    ),
                                   ),
                                 ],
                               ),
-                            ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                children: [
+                                  RectangularBar(
+                                    height: 15,
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    'claire30dayHealth.com',
+                                    style: TextStyle(
+                                        color:
+                                            Color(0xff616161).withOpacity(.8),
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         ],
                       ),

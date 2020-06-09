@@ -22,7 +22,6 @@ class Test extends StatefulWidget {
 class _TestState extends State<Test> {
   static String url =
       "https://storage.googleapis.com/gd-wagtail-prod-assets/original_images/MDA2018_inline_03.jpg";
-
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -50,20 +49,7 @@ class _TestState extends State<Test> {
                     child: Stack(
                       children: [
                         Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: 10,
-                                color: Color(0xff000000).withOpacity(.6),
-                                spreadRadius: 1,
-                                // changes position of shadow
-                              ),
-                            ],
-                            image: DecorationImage(
-                                image: new NetworkImage(url),
-                                fit: BoxFit.cover),
-                          ),
+                          decoration: kImageBoxDecoration(imageUrl: url),
                         ),
                         Positioned(
                           bottom: 15,
@@ -95,8 +81,7 @@ class _TestState extends State<Test> {
                           children: [
                             Text(
                               "Clair - Fit 30 Days",
-                              style: TextStyle(
-                                  color: Color(0xff616161), fontSize: 18.0),
+                              style: profileNameTextStyle,
                             ),
                             Text(
                               '@humming_together',
@@ -150,7 +135,7 @@ class _TestState extends State<Test> {
                 ],
               ),
             ),
-            Generaterow(
+            Generaterow (
               firstContainer: infoHolderContainer(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -180,28 +165,38 @@ class _TestState extends State<Test> {
               ),
               secondContainer: imageHolderContainer(
                 child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 10,
-                        color: Color(0xff000000).withOpacity(.6),
-                        spreadRadius: 1,
-                        // changes position of shadow
-                      ),
-                    ],
-                  ),
                   height: SizeConfig.blockSizeVertical * 25,
                   width: double.infinity,
                   child: Stack(
-                      // children: [
-                      //  CarouselSlider(
-                      //   items: imgstack.map((e) => Builder(BuildContex  context){
-                      //    return Container();
-                      //  }),
-                      //),
-                      // ],
+                    children: [
+                      Transform(
+                        transform: Matrix4.identity()
+                          ..scale(.8, .6)
+                          ..translate(30.0),
+                        alignment: Alignment.center,
+                        child: ImageContainer(
+                          imgUrl: url,
+                        ),
                       ),
+                      Transform(
+                        transform: Matrix4.identity()
+                          ..scale(.8, .8)
+                          ..translate(10.0),
+                        alignment: Alignment.center,
+                        child: ImageContainer(
+                          imgUrl: url,
+                        ),
+                      ),
+                      Transform(
+                        transform: Matrix4.identity()
+                          ..scale(.8, 1.0)
+                          ..translate(1.0),
+                        child: ImageContainer(
+                          imgUrl: url,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -329,7 +324,7 @@ class _TestState extends State<Test> {
                     ],
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -345,7 +340,7 @@ class _TestState extends State<Test> {
                     ],
                   ),
                   Padding(
-                    padding: paddingToRow,
+                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                     child: ButtonTheme(
                       minWidth: double.infinity,
                       height: 32.0,
@@ -364,33 +359,21 @@ class _TestState extends State<Test> {
               ),
             ),
             Padding(
-              padding: lastTwoRowpadding,
+              padding: EdgeInsets.symmetric(horizontal: 10),
               child: Row(
                 children: [
                   Container(
                     margin: EdgeInsets.all(10),
                     height: SizeConfig.blockSizeVertical * 15,
-                    width: SizeConfig.blockSizeHorizontal * 40,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 10,
-                          color: Color(0xff000000).withOpacity(.6),
-                          spreadRadius: 1,
-                          // changes position of shadow
-                        ),
-                      ],
-                      image: DecorationImage(
-                          image: new NetworkImage(url), fit: BoxFit.fill),
-                    ),
+                    width: SizeConfig.blockSizeHorizontal * 45,
+                    decoration: kImageBoxDecoration(imageUrl: url),
                   ),
+                  Spacer(),
                   Container(
                     height: SizeConfig.blockSizeVertical * 15,
                     width: SizeConfig.screenWidth * .4,
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.baseline,
-                      textBaseline: TextBaseline.alphabetic,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
@@ -405,29 +388,11 @@ class _TestState extends State<Test> {
                         ),
                         Row(
                           children: [
-                            Container(
-                              height: 22,
-                              width: 28,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                image: DecorationImage(
-                                    image: new NetworkImage(url),
-                                    fit: BoxFit.fill),
-                              ),
-                            ),
+                            findmeLogoContainer(imgUrl: url, onTap: () {}),
                             SizedBox(
                               width: 20,
                             ),
-                            Container(
-                              height: 22,
-                              width: 28,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                image: DecorationImage(
-                                    image: new NetworkImage(url),
-                                    fit: BoxFit.fill),
-                              ),
-                            ),
+                            findmeLogoContainer(imgUrl: url, onTap: () {}),
                           ],
                         ),
                         Spacer(),
@@ -437,7 +402,7 @@ class _TestState extends State<Test> {
                               height: 15,
                             ),
                             SizedBox(
-                              width: 10,
+                              width: 5,
                             ),
                             FittedBox(
                               child: Text(

@@ -5,13 +5,16 @@ import 'Responsive.dart';
 double height = SizeConfig.blockSizeVertical * 25;
 double infoHolderContainerHeight = height;
 double imgHolderContainerHeight = height;
-double infoHolderContainerWidth = SizeConfig.screenWidth * .4;
+double infoHolderContainerWidth = SizeConfig.screenWidth * .45;
 double imgHolderContainerWidth = SizeConfig.blockSizeHorizontal * 35;
 final paddingToRow = EdgeInsets.symmetric(vertical: 30, horizontal: 20);
 final lastTwoRowpadding = EdgeInsets.symmetric(horizontal: 20);
 final tittlepadding = EdgeInsets.only(top: 10, left: 30);
 const kPagetitleStyle =
     TextStyle(fontSize: 22.0, color: Color.fromRGBO(97, 97, 97, 0.3));
+
+final profileNameTextStyle =
+    TextStyle(color: Color(0xff616161), fontSize: 18.0);
 /////////21//////////
 const kmaintextstyle = TextStyle(
   color: Color(0xff616161),
@@ -60,7 +63,7 @@ class Generaterow extends StatelessWidget {
 
 class imageHolderContainer extends StatelessWidget {
   imageHolderContainer({@required this.child});
-  Widget child;
+  final Widget child;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -73,7 +76,7 @@ class imageHolderContainer extends StatelessWidget {
 
 class infoHolderContainer extends StatelessWidget {
   infoHolderContainer({@required this.child});
-  Widget child;
+  final Widget child;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -89,19 +92,10 @@ class ImageContainer extends StatelessWidget {
   final String imgUrl;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 10,
-            color: Color(0xff000000).withOpacity(.6),
-            spreadRadius: 1,
-            // changes position of shadow
-          ),
-        ],
-        image:
-            DecorationImage(image: new NetworkImage(imgUrl), fit: BoxFit.cover),
+    return Padding(
+      padding: const EdgeInsets.only(top: 5),
+      child: Container(
+        decoration: kImageBoxDecoration(imageUrl: imgUrl),
       ),
     );
   }
@@ -136,7 +130,7 @@ class GestureButtons extends StatelessWidget {
         height: 5 * SizeConfig.blockSizeVertical,
         child: Padding(
           padding: const EdgeInsets.symmetric(
-            horizontal: 10,
+            horizontal: 20,
           ),
           child: Text(
             text,
@@ -148,7 +142,7 @@ class GestureButtons extends StatelessWidget {
         ),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15), color: Color(0xffECEFF1)),
+            borderRadius: BorderRadius.circular(20), color: Color(0xffECEFF1)),
       ),
     );
   }
@@ -278,5 +272,36 @@ Widget lSideBarMatrixWidget(
         ],
       ),
     ],
+  );
+}
+
+Decoration kImageBoxDecoration({@required String imageUrl}) {
+  return BoxDecoration(
+    borderRadius: BorderRadius.circular(8),
+    boxShadow: [
+      BoxShadow(
+        blurRadius: 10,
+        color: Color(0xff000000).withOpacity(.6),
+        spreadRadius: 1,
+        // changes position of shadow
+      ),
+    ],
+    image: DecorationImage(image: new NetworkImage(imageUrl), fit: BoxFit.fill),
+  );
+}
+
+Widget findmeLogoContainer(
+    {@required String imgUrl, @required Function onTap}) {
+  return GestureDetector(
+    onTap: onTap,
+    child: Container(
+      height: 22,
+      width: 28,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        image:
+            DecorationImage(image: new NetworkImage(imgUrl), fit: BoxFit.fill),
+      ),
+    ),
   );
 }

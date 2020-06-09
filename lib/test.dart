@@ -1,5 +1,3 @@
-import 'package:carousel_pro/carousel_pro.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +6,8 @@ import 'Responsive.dart';
 
 ///Second row's children differ from other row in width & height  so here the detail of first row's children///
 ///first container detail//
-double consHeight = SizeConfig.blockSizeVertical * 30;
+///hard coded width so that info container won't get collapsed in small devices
+double consHeight = 200;
 double firstContHeight = consHeight;
 double firstContWidth = SizeConfig.blockSizeHorizontal * 35;
 double secondContHeight = consHeight;
@@ -38,105 +37,100 @@ class _TestState extends State<Test> {
                 style: kPagetitleStyle,
               ),
             ),
-            Padding(
-              padding: paddingToRow,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    height: firstContHeight,
-                    width: firstContWidth,
-                    child: Stack(
-                      children: [
-                        Container(
-                          decoration: kImageBoxDecoration(imageUrl: url),
-                        ),
-                        Positioned(
-                          bottom: 15,
-                          child: Container(
-                            height: 25,
-                            alignment: Alignment.center,
-                            width: imgHolderContainerWidth,
-                            color: Color(0xffFFFFFF).withOpacity(.9),
-                            child: Text(
-                              'CREATOR',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Color(0xff616161),
-                              ),
-                            ),
+            GenerateRow(
+              firstContainer: ImageHolderContainer(
+                height: firstContHeight,
+                width: firstContWidth,
+                child: Stack(
+                  children: [
+                    Container(
+                      decoration: ImageBoxDecoration(imageUrl: url),
+                    ),
+                    Positioned(
+                      bottom: 15,
+                      child: Container(
+                        height: 25,
+                        alignment: Alignment.center,
+                        width: imgHolderContainerWidth,
+                        color: Color(0xffFFFFFF).withOpacity(.9),
+                        child: Text(
+                          'CREATOR',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Color(0xff616161),
                           ),
                         ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              secondContainer: InfoHolderContainer(
+                height: secondContHeight,
+                width: secondContWidth,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Clair - Fit 30 Days",
+                          style: profileNameTextStyle,
+                        ),
+                        Text(
+                          '@humming_together',
+                          style: TextStyle(
+                              color: Color(0xff424242).withOpacity(.5),
+                              fontSize: 14.0),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          width: double.infinity,
+                          height: 25,
+                          alignment: Alignment.center,
+                          child: Text(
+                            'HEALTH & LIFESTYLE',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Color(0xff5567C9).withOpacity(.7),
+                          ),
+                        )
                       ],
                     ),
-                  ),
-                  Container(
-                    height: secondContHeight,
-                    width: secondContWidth,
-                    child: Column(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        matrixwidget(
+                            firstRowfirstCol: '21',
+                            firstRowSecndCol: 'k',
+                            secndRow: 'FOLLOWER'),
                         Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text(
-                              "Clair - Fit 30 Days",
-                              style: profileNameTextStyle,
-                            ),
-                            Text(
-                              '@humming_together',
-                              style: TextStyle(
-                                  color: Color(0xff424242).withOpacity(.5),
-                                  fontSize: 14.0),
-                            ),
+                            rSideBarMatrixWidget(
+                                rectangularbarHeight: 31,
+                                firstrow: '10% MOM',
+                                secondrow: 'Growth'),
                             SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              width: double.infinity,
-                              height: 25,
-                              alignment: Alignment.center,
-                              child: Text(
-                                'HEALTH & LIFESTYLE',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                color: Color(0xff5567C9).withOpacity(.7),
-                              ),
+                              height: 80,
                             )
                           ],
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            matrixwidget(
-                                firstRowfirstCol: '21',
-                                firstRowSecndCol: 'k',
-                                secndRow: 'FOLLOWER'),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                rSideBarMatrixWidget(
-                                    rectangularbarHeight: 31,
-                                    firstrow: '10% MOM',
-                                    secondrow: 'Growth'),
-                                SizedBox(
-                                  height: 80,
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
                       ],
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-            Generaterow (
-              firstContainer: infoHolderContainer(
+            GenerateRow(
+              firstContainer: InfoHolderContainer(
+                width: SizeConfig.screenWidth * .35,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -163,50 +157,48 @@ class _TestState extends State<Test> {
                   ],
                 ),
               ),
-              secondContainer: imageHolderContainer(
-                child: Container(
-                  height: SizeConfig.blockSizeVertical * 25,
-                  width: double.infinity,
-                  child: Stack(
-                    children: [
-                      Transform(
-                        transform: Matrix4.identity()
-                          ..scale(.8, .6)
-                          ..translate(30.0),
-                        alignment: Alignment.center,
-                        child: ImageContainer(
-                          imgUrl: url,
+              secondContainer: ImageHolderContainer(
+                  width: 170,
+                  child: Container(
+                    child: Stack(
+                      children: [
+                        Transform(
+                          transform: Matrix4.identity()
+                            ..scale(.8, .6)
+                            ..translate(30.0),
+                          alignment: Alignment.center,
+                          child: ImageContainer(
+                            imgUrl: url,
+                          ),
                         ),
-                      ),
-                      Transform(
-                        transform: Matrix4.identity()
-                          ..scale(.8, .8)
-                          ..translate(10.0),
-                        alignment: Alignment.center,
-                        child: ImageContainer(
-                          imgUrl: url,
+                        Transform(
+                          transform: Matrix4.identity()
+                            ..scale(.8, .8)
+                            ..translate(10.0),
+                          alignment: Alignment.center,
+                          child: ImageContainer(
+                            imgUrl: url,
+                          ),
                         ),
-                      ),
-                      Transform(
-                        transform: Matrix4.identity()
-                          ..scale(.8, 1.0)
-                          ..translate(1.0),
-                        child: ImageContainer(
-                          imgUrl: url,
+                        Transform(
+                          transform: Matrix4.identity()
+                            ..scale(.8, 1.0)
+                            ..translate(1.0),
+                          child: ImageContainer(
+                            imgUrl: url,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+                      ],
+                    ),
+                  )),
             ),
-            Generaterow(
-              firstContainer: imageHolderContainer(
+            GenerateRow(
+              firstContainer: ImageHolderContainer(
                 child: ImageContainer(
                   imgUrl: url,
                 ),
               ),
-              secondContainer: infoHolderContainer(
+              secondContainer: InfoHolderContainer(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -222,8 +214,8 @@ class _TestState extends State<Test> {
                 ),
               ),
             ),
-            Generaterow(
-              firstContainer: infoHolderContainer(
+            GenerateRow(
+              firstContainer: InfoHolderContainer(
                 child: Row(
                   children: [
                     RectangularBar(
@@ -241,19 +233,19 @@ class _TestState extends State<Test> {
                   ],
                 ),
               ),
-              secondContainer: imageHolderContainer(
+              secondContainer: ImageHolderContainer(
                 child: ImageContainer(
                   imgUrl: url,
                 ),
               ),
             ),
-            Generaterow(
-              firstContainer: imageHolderContainer(
+            GenerateRow(
+              firstContainer: ImageHolderContainer(
                 child: ImageContainer(
                   imgUrl: url,
                 ),
               ),
-              secondContainer: infoHolderContainer(
+              secondContainer: InfoHolderContainer(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -366,7 +358,7 @@ class _TestState extends State<Test> {
                     margin: EdgeInsets.all(10),
                     height: SizeConfig.blockSizeVertical * 15,
                     width: SizeConfig.blockSizeHorizontal * 45,
-                    decoration: kImageBoxDecoration(imageUrl: url),
+                    decoration: ImageBoxDecoration(imageUrl: url),
                   ),
                   Spacer(),
                   Container(

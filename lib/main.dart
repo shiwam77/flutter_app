@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/Home.dart';
 import 'package:flutterapp/test.dart';
-import 'package:flutterapp/waytodothoughttwo.dart';
 
 void main() {
   runApp(MyApp());

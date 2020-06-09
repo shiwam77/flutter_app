@@ -42,8 +42,8 @@ const kitalictextstyle = TextStyle(
 const kcontainermargin = EdgeInsets.fromLTRB(20, 20, 10, 20);
 final double ktextmultiplier = SizeConfig.blockSizeVertical;
 
-class Generaterow extends StatelessWidget {
-  Generaterow({@required this.firstContainer, @required this.secondContainer});
+class GenerateRow extends StatelessWidget {
+  GenerateRow({@required this.firstContainer, @required this.secondContainer});
   Widget firstContainer;
   Widget secondContainer;
   @override
@@ -61,27 +61,37 @@ class Generaterow extends StatelessWidget {
   }
 }
 
-class imageHolderContainer extends StatelessWidget {
-  imageHolderContainer({@required this.child});
-  final Widget child;
+class ImageHolderContainer extends StatelessWidget {
+  ImageHolderContainer({@required this.child, this.height, this.width});
+  Widget child;
+  double height;
+  double width;
+
   @override
   Widget build(BuildContext context) {
+    height == null ? height = imgHolderContainerHeight : height = height;
+    width == null ? width = imgHolderContainerWidth : width = width;
+    print(height);
     return Container(
-      height: imgHolderContainerHeight,
-      width: imgHolderContainerWidth,
+      height: height,
+      width: width,
       child: child,
     );
   }
 }
 
-class infoHolderContainer extends StatelessWidget {
-  infoHolderContainer({@required this.child});
+class InfoHolderContainer extends StatelessWidget {
+  InfoHolderContainer({@required this.child, this.height, this.width});
   final Widget child;
+  double height;
+  double width;
   @override
   Widget build(BuildContext context) {
+    height == null ? height = infoHolderContainerHeight : height = height;
+    width == null ? width = infoHolderContainerWidth : width = width;
     return Container(
-      height: infoHolderContainerHeight,
-      width: infoHolderContainerWidth,
+      height: height,
+      width: width,
       child: child,
     );
   }
@@ -95,7 +105,7 @@ class ImageContainer extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 5),
       child: Container(
-        decoration: kImageBoxDecoration(imageUrl: imgUrl),
+        decoration: ImageBoxDecoration(imageUrl: imgUrl),
       ),
     );
   }
@@ -275,7 +285,7 @@ Widget lSideBarMatrixWidget(
   );
 }
 
-Decoration kImageBoxDecoration({@required String imageUrl}) {
+Decoration ImageBoxDecoration({@required String imageUrl}) {
   return BoxDecoration(
     borderRadius: BorderRadius.circular(8),
     boxShadow: [
@@ -286,7 +296,11 @@ Decoration kImageBoxDecoration({@required String imageUrl}) {
         // changes position of shadow
       ),
     ],
-    image: DecorationImage(image: new NetworkImage(imageUrl), fit: BoxFit.fill),
+    image: DecorationImage(
+        image: new NetworkImage(
+          imageUrl,
+        ),
+        fit: BoxFit.cover),
   );
 }
 
@@ -301,6 +315,43 @@ Widget findmeLogoContainer(
         borderRadius: BorderRadius.circular(5),
         image:
             DecorationImage(image: new NetworkImage(imgUrl), fit: BoxFit.fill),
+      ),
+    ),
+  );
+}
+
+//Not implemented
+Widget imageLoadingBar() {
+  String url;
+  return Container(
+    child: DecoratedBox(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 10,
+            color: Color(0xff000000).withOpacity(.6),
+            spreadRadius: 1,
+            // changes position of shadow
+          ),
+        ],
+        border: Border.all(),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Image.network(
+        'https://example.com/image.jpg',
+        fit: BoxFit.cover,
+        loadingBuilder: (BuildContext context, Widget child,
+            ImageChunkEvent loadingProgress) {
+          if (loadingProgress == null) return child;
+          return Center(
+            child: CircularProgressIndicator(
+              value: loadingProgress.expectedTotalBytes != null
+                  ? loadingProgress.cumulativeBytesLoaded /
+                      loadingProgress.expectedTotalBytes
+                  : null,
+            ),
+          );
+        },
       ),
     ),
   );

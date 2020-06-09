@@ -15,7 +15,3 @@ class SizeConfig {
     blockSizeVertical = screenHeight / 100;
   }
 }
-//child: Text("HEALTH & LIFESTYLE")),
-//onPressed: () {},
-//color: Color(0xff5567C9).withOpacity(.7),
-//textColor: Colors.white,
